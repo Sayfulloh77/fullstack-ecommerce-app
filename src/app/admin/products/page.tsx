@@ -10,7 +10,7 @@ export default function AdminProductsPage() {
     <Button asChild>
         <Link 
            href="/admin/products/new"
-           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+           className="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700">
             Add Product
         </Link>
     </Button>
