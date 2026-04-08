@@ -11,6 +11,13 @@ export function Orders() {
   { id: 1, name: "Apple", color: "bg-blue-500" },
   { id: 2, name: "qora zamish", color: "bg-red-500" },
   { id: 3, name: "Banana", color: "bg-green-500" },
+  { id: 4, name: "Car", color: "bg-yellow-500" },
+  { id: 5, name: "House", color: "bg-black" },
+  { id: 6, name: "Animal", color: "bg-pink-500" },
+  { id: 7, name: "Sky", color: "bg-indigo-500" },
+  { id: 8, name: "Tree", color: "bg-emerald-500" },
+  { id: 9, name: "Sun", color: "bg-orange-500" },
+
 ];
     
 

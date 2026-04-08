@@ -2,7 +2,14 @@ import { Button } from "@/components/ui/button";
 import { PageHeader } from "../_components/PageHeader";
 import  Link  from "next/link";
 
-export default function AdminProductsPage() {
+async function getData() {
+    await new Promise(res => setTimeout(res, 1000))
+    return[]
+}
+
+export default async function AdminProductsPage() {
+    const data = await getData()
+
     return (
     <>
     <div className="flex justify-between items-center gap-4 w-full">
