@@ -1,7 +1,10 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { formatCurrency } from "@/lib/formatters"
 import { useState } from "react"
 
 export function ProductForm() {
@@ -20,7 +23,22 @@ export function ProductForm() {
             name="priceInCents" 
             required  
             value={priceInCents}
-            onChange={e => setPriceInCents(Number(e.target.value) || undefined)}/>
+            onChange={e => setPriceInCents(Number(e.target.value) || undefined)}
+            />
+            <div className="text-muted-foreground">{formatCurrency((priceInCents || 0) / 100)}</div>
         </div>
+         <div className="space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <Textarea type="description" name="descripition" required />
+        </div>
+         <div className="space-y-2">
+            <Label htmlFor="file">File</Label>
+            <Input type="file" id="file" name="file" required />
+        </div>
+         <div className="space-y-2">
+            <Label htmlFor="image">Image</Label>
+            <Input type="file" id="image" name="image" required />
+        </div>
+        <Button className="bg-gray-900 text-white cursor-pointer hover:bg-gray-700 " type="submit">Save</Button>
     </form>
 }
