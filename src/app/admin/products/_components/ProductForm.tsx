@@ -6,11 +6,12 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { formatCurrency } from "@/lib/formatters"
 import { useState } from "react"
+import { addProduct } from "../_actions/products"
 
 export function ProductForm() {
     const [priceInCents, setPriceInCents] = useState<number>()
 
-    return <form action={} className="space-y-8">
+    return <form action={addProduct} className="space-y-8">
         <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input type="text" id="name" name="name" required />
@@ -25,7 +26,7 @@ export function ProductForm() {
             value={priceInCents}
             onChange={e => setPriceInCents(Number(e.target.value) || undefined)}
             />
-            <div className="text-muted-foreground">{formatCurrency((priceInCents || 0) / 100)}</div>
+            <div className="text-muted-foreground">{formatCurrency((priceInCents || 0) / 12)}</div>
         </div>
          <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
