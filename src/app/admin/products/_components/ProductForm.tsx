@@ -10,7 +10,7 @@ import { useState } from "react"
 export function ProductForm() {
     const [priceInCents, setPriceInCents] = useState<number>()
 
-    return <form className="space-y-8">
+    return <form action={} className="space-y-8">
         <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input type="text" id="name" name="name" required />
