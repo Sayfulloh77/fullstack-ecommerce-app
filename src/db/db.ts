@@ -11,6 +11,6 @@ declare global {
 
 const db = globalThis.prisma ?? prismaClientSignleton()
 
-export default db
+export default db 
 
 if (process.env.NODE_ENV !== "production") globalThis.prisma = db
