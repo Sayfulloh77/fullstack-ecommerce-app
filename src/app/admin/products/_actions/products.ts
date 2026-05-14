@@ -12,17 +12,20 @@ const imageSchema = fileSchema.refine(
 )
 
 const addSchema = z.object({
-    name: z.string().min(1),
-    description: z.string().min(1),
+    name: z.string().min(1, "Name is required").regex(/^[A-Za-z\s]+$/, "Only letters allowed"),
+    description: z.string().min(1, "Description is required"),
     priceInCents: z.coerce.number().int().min(1),
     file: fileSchema.refine(file => file.size > 0, "Required"),
     image: imageSchema.refine(file => file.size > 0, "Required")
 })
 
-export async function addProduct(formData: FormData) {
+export async function addProduct(prevState: unknown, formData: FormData) {
+
+    await new Promise(res => setTimeout(res, 1000))
+
     const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
     if (result.success === false) {
-        return result.error.formErrors.fieldErrors
+        return result.error.flatten().fieldErrors
     }
 
     const data = result.data
