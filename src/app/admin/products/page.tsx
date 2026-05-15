@@ -1,7 +1,12 @@
+import db from "@/db/db";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "../_components/PageHeader";
 import  Link  from "next/link";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
+import { formatCurrency, formatNumber } from "@/lib/formatters";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+
 
 async function getData() {
     await new Promise(res => setTimeout(res, 1000))
@@ -28,7 +33,20 @@ export default async function AdminProductsPage() {
 )
 }
 
-function ProductsTable() {
+async function ProductsTable() {
+    const products = await db.product.findMany({ 
+        select: { 
+            id: true ,
+            name: true, 
+            priceInCents: true, 
+            isAvailableForPurchase: true,
+         // _count: { select: { orders: true }}
+        },
+        orderBy: { name: "asc" }
+    })
+
+    if (products.length === 0) return <p>No products found.</p>
+
     return <Table>
         <TableHeader>
             <TableRow>
@@ -44,7 +62,49 @@ function ProductsTable() {
             </TableRow>
         </TableHeader>
         <TableBody>
-          
+          {products.map(products => (
+            <TableRow key= {products.id}>
+                <TableCell>
+                    {products.isAvailableForPurchase ? (
+                    <>
+                      <CheckCircle2 />
+                      <span className="sr-only">Available</span>
+                    </> 
+                    ) : (
+                    <>
+                      <XCircle />
+                      <span className="sr-only">Unavailable</span>
+                    </> 
+                   )}
+                </TableCell>
+                <TableCell>{products.name}</TableCell>
+                <TableCell>{formatCurrency(products.priceInCents / 100)}</TableCell>
+                <TableCell>0</TableCell>  
+                <TableCell>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <MoreVertical/>
+                            <span className="sr-only">Actions</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+
+                            <DropdownMenuItem asChild>
+                              <a download href={`/admin/products/${products.id}/download`}>
+                                Download
+                              </a>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem asChild>
+                              <Link  href={`/admin/products/${products.id}/edit`}>
+                                Edit
+                              </Link>
+                            </DropdownMenuItem>
+
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
     </Table>
 }
