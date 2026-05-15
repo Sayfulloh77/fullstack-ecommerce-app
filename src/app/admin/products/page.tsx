@@ -5,7 +5,7 @@ import  Link  from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { ActiveToggleDropdownItem, DeleteProductDropdownItem } from "./_components/ProductActions";
 
 
@@ -104,6 +104,8 @@ async function ProductsTable() {
                           <ActiveToggleDropdownItem
                             id={products.id} 
                             isAvailabeForPurchase={products.isAvailableForPurchase} />
+
+                          <DropdownMenuSeparator />
 
                           <DeleteProductDropdownItem 
                             id={products.id} 
