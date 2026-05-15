@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { ActiveToggleDropdownItem, DeleteProductDropdownItem } from "./_components/ProductActions";
 
 
 async function getData() {
@@ -40,7 +41,7 @@ async function ProductsTable() {
             name: true, 
             priceInCents: true, 
             isAvailableForPurchase: true,
-         // _count: { select: { orders: true }}
+            _count: { select: { orders: true }}
         },
         orderBy: { name: "asc" }
     })
@@ -79,7 +80,7 @@ async function ProductsTable() {
                 </TableCell>
                 <TableCell>{products.name}</TableCell>
                 <TableCell>{formatCurrency(products.priceInCents / 100)}</TableCell>
-                <TableCell>0</TableCell>  
+                <TableCell>{formatNumber(products._count.orders)}</TableCell>  
                 <TableCell>
                     <DropdownMenu>
                         <DropdownMenuTrigger>
@@ -100,8 +101,16 @@ async function ProductsTable() {
                               </Link>
                             </DropdownMenuItem>
 
+                          <ActiveToggleDropdownItem
+                            id={products.id} 
+                            isAvailabeForPurchase={products.isAvailableForPurchase} />
+
+                          <DeleteProductDropdownItem 
+                            id={products.id} 
+                            disabled={products._count.orders > 0} />
                         </DropdownMenuContent>
-                    </DropdownMenu>
+                       </DropdownMenu>
+
                 </TableCell>
             </TableRow>
           ))}

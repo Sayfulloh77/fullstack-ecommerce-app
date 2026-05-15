@@ -7,10 +7,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { formatCurrency } from "@/lib/formatters"
 import { useState } from "react"
 import { addProduct } from "../_actions/products"
-import { useFormState, useFormStatus } from "react-dom"
+import { useActionState } from "react"
+import { useFormStatus } from "react-dom"
 
 export function ProductForm() {
-    const [error, action] = useFormState(addProduct, {})
+    const [error, action] = useActionState(addProduct, {})
     const [priceInCents, setPriceInCents] = useState<number>(0)
 
     return <form action={action} className="space-y-8">
