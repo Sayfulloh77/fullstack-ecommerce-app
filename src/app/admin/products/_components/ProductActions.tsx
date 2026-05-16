@@ -40,6 +40,7 @@ export function DeleteProductDropdownItem({
 
     return (
     <DropdownMenuItem 
+    variant="destructive"
     disabled={disabled || isPending}
     onClick={() => {
         startTransition(async () => {
